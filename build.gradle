@@ -1,3 +1,6 @@
+import java.time.format.DateTimeFormatter
+import java.time.LocalDateTime
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.4'
@@ -33,3 +36,24 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task generatePostAndComments() {
+	doLast {
+		File dataSql = file("src/main/resources/data.sql")
+		dataSql.write("")
+
+		// Generowanie postów
+		for (int i = 1; i <= 100; i++) {
+			def createdAt = LocalDateTime.now().minusDays(100 - i).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+			dataSql.append("INSERT INTO post (id, title, content, created) VALUES (${i}, 'Test post ${i}', 'Content ${i}', '${createdAt}');\n")
+		}
+
+		// Generowanie komentarzy
+		for (int i = 1; i <= 100; i++) {
+			int postId = 1 + i / 10
+			def createdAt = LocalDateTime.now().minusDays(100 - i).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+			dataSql.append("INSERT INTO comment (id, post_id, content, created) VALUES (${i}, ${postId}, 'Comment ${i}', '${createdAt}');\n")
+		}
+	}
+}
+
