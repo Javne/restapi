@@ -14,8 +14,8 @@ public class Config {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
-                .info(new Info().title("the title").version("0.0").description("My API")
-                        .contact(new Contact().name("Fred").url("http://gigantic-server.com").email("Fred@gigagantic-server.com")));
+                .info(new Info().title("RestApi").version("1.0").description("FirstRestApi")
+                        .contact(new Contact().name("Ewelina Borkowska").url("https://github.com/Javne/restapi.git").email("javaczysen@gmail.com")));
     }
 }
 
