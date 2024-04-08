@@ -1,19 +1,21 @@
 package com.javne.restapi.config;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
 public class Config {
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    void customizeObjectMapper(){
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    @Bean
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .info(new Info().title("the title").version("0.0").description("My API")
+                        .contact(new Contact().name("Fred").url("http://gigantic-server.com").email("Fred@gigagantic-server.com")));
     }
 }
+
