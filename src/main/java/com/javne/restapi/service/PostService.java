@@ -49,6 +49,10 @@ public class PostService {
                 .filter(comment -> comment.getPostId()== id)
                 .collect(Collectors.toList());
     }
+
+    public Post addPost(Post post) {
+        return postRepository.save(post);
+    }
 }
 
 
